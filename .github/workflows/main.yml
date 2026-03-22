@@ -1,0 +1,46 @@
+name: Inject KernelSU v0.9.5
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ksu:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout kernel source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create new branch
+        run: |
+          BRANCH=ksu-0.9.5-$(date +%s)
+          echo "BRANCH_NAME=$BRANCH" >> $GITHUB_ENV
+          git checkout -b $BRANCH
+
+      # 🔥 Install KernelSU v0.9.5 (non-GKI compatible)
+      - name: Inject KernelSU
+        run: |
+          git clone --depth=1 --branch v0.9.5 https://github.com/tiann/KernelSU.git
+          cd KernelSU
+
+          # run official setup script
+          bash setup.sh ..
+
+          cd ..
+          rm -rf KernelSU
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Add KernelSU v0.9.5 (non-GKI)"
+
+      - name: Push branch
+        run: |
+          git push origin $BRANCH_NAME
