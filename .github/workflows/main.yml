@@ -27,14 +27,7 @@ jobs:
       # 🔥 Install KernelSU v0.9.5 (non-GKI compatible)
       - name: Inject KernelSU
         run: |
-          git clone --depth=1 --branch v0.9.5 https://github.com/tiann/KernelSU.git
-          cd KernelSU
-
-          # run official setup script
-          bash setup.sh ..
-
-          cd ..
-          rm -rf KernelSU
+          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
 
       - name: Commit changes
         run: |
