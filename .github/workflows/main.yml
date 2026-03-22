@@ -74,7 +74,7 @@ jobs:
         working-directory: ./kernel
         run: |
           make -j$(nproc) O=out ARCH=arm64 \
-            CC=${CC} LD=${LD} AR=${AR} NM=${NM} \
+            KCFLAGS="-Wno-error" CC=${CC} LD=${LD} AR=${AR} NM=${NM} \
             OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
             CROSS_COMPILE=${CROSS_COMPILE} 2>&1 | tee build.log
       - name: Upload build log
