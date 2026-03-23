@@ -6449,6 +6449,7 @@ static void hmp_attr_add(
 static int hmp_attr_init(void)
 {
 	int ret;
+	(void)ret;
 
 	hmp_attr_add("load_avg_period_ms",
 		&hmp_data.multiplier,
