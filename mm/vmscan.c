@@ -481,6 +481,7 @@ void drop_slab_node(int nid)
 void drop_slab(void)
 {
 	int nid;
+	(void)nid;
 
 	for_each_online_node(nid)
 		drop_slab_node(nid);
