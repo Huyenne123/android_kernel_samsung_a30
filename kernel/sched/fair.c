@@ -10188,8 +10188,8 @@ static int move_specific_task(struct lb_env *env, struct task_struct *pm)
 				env->dst_cpu))
 		continue;
 
-		if (!hmp_can_migrate_task(p, env))
-			continue;
+	if (!hmp_can_migrate_task(p, env))
+		continue;
 		/* Check if we found the right task */
 		if (p != pm)
 			continue;
@@ -10541,6 +10541,7 @@ static unsigned int hmp_idle_pull(int this_cpu)
 {
 	int cpu;
 	struct sched_entity *curr, *orig;
+	(void)orig;
 	struct hmp_domain *hmp_domain = NULL;
 	struct rq *target, *rq;
 	unsigned long flags,ratio = 0;
