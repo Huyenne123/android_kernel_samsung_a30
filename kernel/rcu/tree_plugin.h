@@ -294,6 +294,7 @@ static void rcu_preempt_note_context_switch(void)
 	unsigned long flags;
 	struct rcu_data *rdp;
 	struct rcu_node *rnp;
+    (void)rnp;
 
 	if (t->rcu_read_lock_nesting > 0 &&
 	    !t->rcu_read_unlock_special.b.blocked) {
