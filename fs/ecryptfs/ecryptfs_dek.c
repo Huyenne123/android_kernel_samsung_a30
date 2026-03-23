@@ -202,9 +202,7 @@ int parse_dek_packet(char *data,
 		size_t *packet_size) {
 	int rc = 0;
 	char temp_comm[PKG_NAME_SIZE]; //test
-	int temp_euid;
 	int sdp_dek_type;
-	int sdp_dek_len;
 
 	if (crypt_stat->file_version == 0)
 		return -EPERM;
@@ -220,7 +218,7 @@ int parse_dek_packet(char *data,
 	memcpy(temp_comm, &data[*packet_size], PKG_NAME_SIZE);
 	(*packet_size) += PKG_NAME_SIZE;
 
-	temp_euid = get_unaligned_be32(data + *packet_size);
+	(void)get_unaligned_be32(data + *packet_size);
 	(*packet_size) += 4;
 
 	if (crypt_stat->flags & ECRYPTFS_DEK_IS_SENSITIVE) {
@@ -365,10 +363,10 @@ static int ecryptfs_update_crypt_flag(struct dentry *dentry, enum sdp_op operati
      * To update metadata we need to make sure keysig_list contains fekek.
      * Because our EDEK is stored along with key for protected file.
      */
-    if(list_empty(&crypt_stat->keysig_list))
+    if (list_empty(&crypt_stat->keysig_list))
         ecryptfs_dek_copy_mount_wide_sigs_to_inode_sigs(crypt_stat, mount_crypt_stat);
 
-	mutex_lock(&crypt_stat->cs_mutex);
+    mutex_lock(&crypt_stat->cs_mutex);
 	rc = ecryptfs_get_lower_file(dentry, inode);
 	if (rc) {
 		mutex_unlock(&crypt_stat->cs_mutex);
