@@ -203,6 +203,7 @@ int parse_dek_packet(char *data,
 	int rc = 0;
 	char temp_comm[PKG_NAME_SIZE]; //test
 	int sdp_dek_type;
+	int sdp_dek_len;
 
 	if (crypt_stat->file_version == 0)
 		return -EPERM;
