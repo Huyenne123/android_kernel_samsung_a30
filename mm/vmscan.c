@@ -3096,7 +3096,7 @@ unsigned long try_to_free_mem_cgroup_pages(struct mem_cgroup *memcg,
 	 * scan does not need to be the current node.
 	 */
 	nid = mem_cgroup_select_victim_node(memcg);
-
+	int nid;
 	zonelist = NODE_DATA(nid)->node_zonelists;
 
 	trace_mm_vmscan_memcg_reclaim_begin(0,
