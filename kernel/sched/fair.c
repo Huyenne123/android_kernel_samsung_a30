@@ -10187,12 +10187,17 @@ static int move_specific_task(struct lb_env *env, struct task_struct *pm)
 	if (throttled_lb_pair(task_group(p), env->src_rq->cpu,
 				env->dst_cpu))
 		continue;
+		
+	struct hmp_domain *hmp_domain;
 
 	if (!hmp_can_migrate_task(p, env))
+    	return;
+
+	if (p != pm) {
+    	hmp_domain = NULL;
+    	// rest of logic
 		continue;
-		/* Check if we found the right task */
-		if (p != pm)
-			continue;
+	}
 
 		move_task(p, env);
 		/*
@@ -10542,7 +10547,6 @@ static unsigned int hmp_idle_pull(int this_cpu)
 	int cpu;
 	struct sched_entity *curr, *orig;
 	(void)orig;
-	struct hmp_domain *hmp_domain = NULL;
 	struct rq *target, *rq;
 	unsigned long flags,ratio = 0;
 	unsigned int force=0;
