@@ -744,7 +744,7 @@ static void sync_rcu_exp_handler(void *info)
  */
 void synchronize_rcu_expedited(void)
 {
-	struct rcu_node *rnp;
+	struct rcu_node *rnp __attribute__((unused));
 	struct rcu_node *rnp_unlock;
 	struct rcu_state *rsp = rcu_state_p;
 	unsigned long s;
