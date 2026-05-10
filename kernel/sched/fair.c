@@ -10182,17 +10182,16 @@ static int hmp_can_migrate_task(struct task_struct *p, struct lb_env *env)
 static int move_specific_task(struct lb_env *env, struct task_struct *pm)
 {
 	struct task_struct *p, *n;
-	struct hmp_domain *h_domain;
 
 	list_for_each_entry_safe(p, n, &env->src_rq->cfs_tasks, se.group_node) {
-	if (throttled_lb_pair(task_group(p), env->src_rq->cpu,
-				env->dst_cpu))
-		return 0;
-		continue;
+    if (throttled_lb_pair(task_group(p), env->src_rq->cpu,
+            env->dst_cpu)) {
+            continue;
+    }
 		
 
 	if (!hmp_can_migrate_task(p, env))
-    	return;
+    	return 0;
 
 	if (p != pm) {
     	h_domain = NULL;
@@ -10545,10 +10544,11 @@ static void hmp_force_up_migration(int this_cpu)
  */
 static unsigned int hmp_idle_pull(int this_cpu)
 {
+	struct hmp_domain *h_domain;
+	struct rq *target, *rq;
 	int cpu;
 	struct sched_entity *curr, *orig;
 	(void)orig;
-	struct rq *target, *rq;
 	unsigned long flags,ratio = 0;
 	unsigned int force=0;
 	unsigned int up_threshold;
