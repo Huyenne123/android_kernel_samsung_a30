@@ -10194,7 +10194,6 @@ static int move_specific_task(struct lb_env *env, struct task_struct *pm)
     	return 0;
 
 	if (p != pm) {
-    	h_domain = NULL;
     	// rest of logic
 		continue;
 	}
