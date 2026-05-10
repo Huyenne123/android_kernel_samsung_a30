@@ -10547,11 +10547,11 @@ static unsigned int hmp_idle_pull(int this_cpu)
 	struct rq *target, *rq;
 	int cpu;
 	struct sched_entity *curr, *orig;
-	(void)orig;
 	unsigned long flags,ratio = 0;
 	unsigned int force=0;
 	unsigned int up_threshold;
 	struct task_struct *p = NULL;
+	(void)orig;
 #ifdef CONFIG_SCHED_HMP_SELECTIVE_BOOST_WITH_NITP
 	int is_boosted_task = 0;
 #endif
