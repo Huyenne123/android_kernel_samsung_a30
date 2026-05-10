@@ -10188,7 +10188,8 @@ static int move_specific_task(struct lb_env *env, struct task_struct *pm)
 				env->dst_cpu))
 		continue;
 		
-	struct hmp_domain *hmp_domain;
+	return 0;
+	struct hmp_domain *h_domain;
 
 	if (!hmp_can_migrate_task(p, env))
     	return;
@@ -10557,8 +10558,8 @@ static unsigned int hmp_idle_pull(int this_cpu)
 #endif
 
 	if (!hmp_cpu_is_slowest(this_cpu))
-		hmp_domain = hmp_slower_domain(this_cpu);
-	if (!hmp_domain)
+		h_domain = hmp_slower_domain(this_cpu);
+	if (!h_domain)
 		return 0;
 
 	if (!spin_trylock(&hmp_force_migration)) {
