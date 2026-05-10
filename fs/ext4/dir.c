@@ -625,6 +625,7 @@ int ext4_check_all_de(struct inode *dir, struct buffer_head *bh, void *buf,
 {
 	struct ext4_dir_entry_2 *de;
 	unsigned int offset = 0;
+	int nlen, rlen;
 	char *top;
 
 	de = (struct ext4_dir_entry_2 *)buf;
