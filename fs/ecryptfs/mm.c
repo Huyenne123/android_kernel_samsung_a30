@@ -104,6 +104,7 @@ static unsigned long invalidate_lower_mapping_pages_retry(struct file *lower_fil
 #endif
 
 void ecryptfs_mm_do_sdp_cleanup(struct inode *inode) {
+	struct ecryptfs_mount_crypt_stat *mount_crypt_stat;
 	struct ecryptfs_crypt_stat *crypt_stat;
 	struct ecryptfs_inode_info *inode_info;
 
